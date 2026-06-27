@@ -30,7 +30,7 @@ numberButtons.forEach(button => {
     }
 }
         currentInput += button.textContent;
-        display.value = currentInput;
+       updateDisplay();
     });
 });
 
@@ -63,7 +63,7 @@ if (isOperator(lastChar) && isOperator(operator)) {
             currentInput += operator;
         }
 
-        display.value = currentInput;
+        updateDisplay();
     });
 });
 
@@ -83,13 +83,18 @@ functionButtons.forEach(button => {
             currentInput = currentInput.slice(0, -1);
         }
 
-        display.value = currentInput;
+        updateDisplay();
     });
 });
 
 // ==========================
 // Equal Button
 // ==========================
+
+function updateDisplay() {
+    display.value = currentInput;
+}
+
 
 equalButton.addEventListener("click", () => {
     
@@ -99,13 +104,13 @@ equalButton.addEventListener("click", () => {
 
     try {
         currentInput = eval(currentInput).toString();
-        display.value = currentInput;
-    } catch {
+        updateDisplay();
+    }catch {
     display.value = "Error";
 
     setTimeout(() => {
         currentInput = "";
-        display.value = "";
+        updateDisplay();
     }, 1000);
 }
 });
@@ -119,11 +124,10 @@ equalButton.addEventListener("click", () => {
 document.addEventListener("keydown", (event) => {
     const key = event.key;
 
-    const allowedKeys = [
+   const allowedKeys = [
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-    ".", "+", "-", "*", "/", "Enter", "Backspace", "Escape"
+    ".", "+", "-", "*", "/", "%", "Enter", "Backspace", "Escape"
 ];
-
 if (!allowedKeys.includes(key)) {
     return;
 }
@@ -137,16 +141,17 @@ if (
     return;
 }
 
-    if (
-        (key >= "0" && key <= "9") ||
-        key === "." ||
-        key === "+" ||
-        key === "-" ||
-        key === "*" ||
-        key === "/"
-    ) {
+   if (
+    (key >= "0" && key <= "9") ||
+    key === "." ||
+    key === "+" ||
+    key === "-" ||
+    key === "*" ||
+    key === "/" ||
+    key === "%"
+) {
         currentInput += key;
-        display.value = currentInput;
+       updateDisplay();
     }
 
     if (key === "Enter") {
@@ -155,11 +160,11 @@ if (
 
     if (key === "Backspace") {
         currentInput = currentInput.slice(0, -1);
-        display.value = currentInput;
+       updateDisplay();
     }
 
     if (key === "Escape") {
         currentInput = "";
-        display.value = "";
+        updateDisplay();
     }
 });
