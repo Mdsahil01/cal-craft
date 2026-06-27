@@ -26,6 +26,14 @@ numberButtons.forEach(button => {
     });
 });
 
+// =================
+// Isoperator function
+// ===================
+
+function isOperator(value) {
+    return ["+", "-", "*", "/", "%"].includes(value);
+}
+
 // ==========================
 // Operator Button Events
 // ==========================
@@ -33,6 +41,11 @@ numberButtons.forEach(button => {
 operatorButtons.forEach(button => {
     button.addEventListener("click", () => {
         const operator = button.textContent;
+        const lastChar = currentInput.slice(-1);
+
+if (isOperator(lastChar) && isOperator(operator)) {
+    return;
+}
 
         if (operator === "×") {
             currentInput += "*";
