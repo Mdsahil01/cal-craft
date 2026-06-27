@@ -119,6 +119,24 @@ equalButton.addEventListener("click", () => {
 document.addEventListener("keydown", (event) => {
     const key = event.key;
 
+    const allowedKeys = [
+    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    ".", "+", "-", "*", "/", "Enter", "Backspace", "Escape"
+];
+
+if (!allowedKeys.includes(key)) {
+    return;
+}
+
+const lastChar = currentInput.slice(-1);
+
+if (
+    ["+", "-", "*", "/"].includes(key) &&
+    ["+", "-", "*", "/"].includes(lastChar)
+) {
+    return;
+}
+
     if (
         (key >= "0" && key <= "9") ||
         key === "." ||
