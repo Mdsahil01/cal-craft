@@ -1,0 +1,85 @@
+/* ===========================
+   Google Font
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ===========================
+   CSS Reset
+=========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   Variables
+=========================== */
+:root {
+    --bg-color: #0f172a;
+    --card-color: #1e293b;
+    --text-color: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --radius: 20px;
+}
+
+/* ===========================
+   Body
+=========================== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: var(--text-color);
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===========================
+   Header
+=========================== */
+.header {
+    text-align: center;
+    padding: 25px 0;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* ===========================
+   Main
+=========================== */
+.calculator-container {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+/* ===========================
+   Calculator Card
+=========================== */
+.calculator {
+    width: 360px;
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+}
+
+/* ===========================
+   Footer
+=========================== */
+.footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
