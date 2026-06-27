@@ -16,6 +16,18 @@ const equalButton = document.querySelector(".equal");
 let currentInput = "";
 
 // ==========================
+// Helper Functions
+// ==========================
+
+function updateDisplay() {
+    display.value = currentInput;
+}
+
+function isOperator(value) {
+    return ["+", "-", "*", "/", "%"].includes(value);
+}
+
+// ==========================
 // Number Button Events
 // ==========================
 
@@ -23,24 +35,17 @@ numberButtons.forEach(button => {
     button.addEventListener("click", () => {
 
         if (button.textContent === ".") {
-    const parts = currentInput.split(/[+\-*/%]/);
+            const parts = currentInput.split(/[+\-*/%]/);
 
-    if (parts[parts.length - 1].includes(".")) {
-        return;
-    }
-}
+            if (parts[parts.length - 1].includes(".")) {
+                return;
+            }
+        }
+
         currentInput += button.textContent;
-       updateDisplay();
+        updateDisplay();
     });
 });
-
-// =================
-// Isoperator function
-// ===================
-
-function isOperator(value) {
-    return ["+", "-", "*", "/", "%"].includes(value);
-}
 
 // ==========================
 // Operator Button Events
@@ -48,12 +53,23 @@ function isOperator(value) {
 
 operatorButtons.forEach(button => {
     button.addEventListener("click", () => {
+
         const operator = button.textContent;
+
+        // Prevent starting with an operator
+        if (currentInput === "") {
+            return;
+        }
+
         const lastChar = currentInput.slice(-1);
 
-if (isOperator(lastChar) && isOperator(operator)) {
-    return;
-}
+        // Prevent consecutive operators
+        if (
+            isOperator(lastChar) &&
+            isOperator(operator === "×" ? "*" : operator === "÷" ? "/" : operator)
+        ) {
+            return;
+        }
 
         if (operator === "×") {
             currentInput += "*";
@@ -73,6 +89,7 @@ if (isOperator(lastChar) && isOperator(operator)) {
 
 functionButtons.forEach(button => {
     button.addEventListener("click", () => {
+
         const action = button.textContent;
 
         if (action === "AC") {
@@ -91,13 +108,8 @@ functionButtons.forEach(button => {
 // Equal Button
 // ==========================
 
-function updateDisplay() {
-    display.value = currentInput;
-}
-
-
 equalButton.addEventListener("click", () => {
-    
+
     if (currentInput.trim() === "") {
         return;
     }
@@ -105,64 +117,87 @@ equalButton.addEventListener("click", () => {
     try {
         currentInput = eval(currentInput).toString();
         updateDisplay();
-    }catch {
-    display.value = "Error";
+    } catch {
+        display.value = "Error";
 
-    setTimeout(() => {
-        currentInput = "";
-        updateDisplay();
-    }, 1000);
-}
+        setTimeout(() => {
+            currentInput = "";
+            updateDisplay();
+        }, 1000);
+    }
 });
-
- 
 
 // ==========================
 // Keyboard Support
 // ==========================
 
 document.addEventListener("keydown", (event) => {
+
     const key = event.key;
 
-   const allowedKeys = [
-    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-    ".", "+", "-", "*", "/", "%", "Enter", "Backspace", "Escape"
-];
-if (!allowedKeys.includes(key)) {
-    return;
-}
+    const allowedKeys = [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        ".", "+", "-", "*", "/", "%",
+        "Enter", "Backspace", "Escape"
+    ];
 
-const lastChar = currentInput.slice(-1);
-
-if (
-    ["+", "-", "*", "/"].includes(key) &&
-    ["+", "-", "*", "/"].includes(lastChar)
-) {
-    return;
-}
-
-   if (
-    (key >= "0" && key <= "9") ||
-    key === "." ||
-    key === "+" ||
-    key === "-" ||
-    key === "*" ||
-    key === "/" ||
-    key === "%"
-) {
-        currentInput += key;
-       updateDisplay();
+    if (!allowedKeys.includes(key)) {
+        return;
     }
 
+    const lastChar = currentInput.slice(-1);
+
+    // Prevent starting with an operator
+    if (
+        currentInput === "" &&
+        ["+", "-", "*", "/", "%"].includes(key)
+    ) {
+        return;
+    }
+
+    // Prevent consecutive operators
+    if (
+        ["+", "-", "*", "/", "%"].includes(key) &&
+        ["+", "-", "*", "/", "%"].includes(lastChar)
+    ) {
+        return;
+    }
+
+    // Prevent multiple decimal points
+    if (key === ".") {
+        const parts = currentInput.split(/[+\-*/%]/);
+
+        if (parts[parts.length - 1].includes(".")) {
+            return;
+        }
+    }
+
+    // Numbers & Operators
+    if (
+        (key >= "0" && key <= "9") ||
+        key === "." ||
+        key === "+" ||
+        key === "-" ||
+        key === "*" ||
+        key === "/" ||
+        key === "%"
+    ) {
+        currentInput += key;
+        updateDisplay();
+    }
+
+    // Calculate
     if (key === "Enter") {
         equalButton.click();
     }
 
+    // Delete
     if (key === "Backspace") {
         currentInput = currentInput.slice(0, -1);
-       updateDisplay();
+        updateDisplay();
     }
 
+    // Clear
     if (key === "Escape") {
         currentInput = "";
         updateDisplay();
