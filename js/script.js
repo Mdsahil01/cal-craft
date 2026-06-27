@@ -101,7 +101,11 @@ equalButton.addEventListener("click", () => {
         currentInput = eval(currentInput).toString();
         display.value = currentInput;
     } catch {
-        display.value = "Error";
+    display.value = "Error";
+
+    setTimeout(() => {
         currentInput = "";
-    }
+        display.value = "";
+    }, 1000);
+}
 });
