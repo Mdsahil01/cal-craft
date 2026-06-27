@@ -109,3 +109,39 @@ equalButton.addEventListener("click", () => {
     }, 1000);
 }
 });
+
+ 
+
+// ==========================
+// Keyboard Support
+// ==========================
+
+document.addEventListener("keydown", (event) => {
+    const key = event.key;
+
+    if (
+        (key >= "0" && key <= "9") ||
+        key === "." ||
+        key === "+" ||
+        key === "-" ||
+        key === "*" ||
+        key === "/"
+    ) {
+        currentInput += key;
+        display.value = currentInput;
+    }
+
+    if (key === "Enter") {
+        equalButton.click();
+    }
+
+    if (key === "Backspace") {
+        currentInput = currentInput.slice(0, -1);
+        display.value = currentInput;
+    }
+
+    if (key === "Escape") {
+        currentInput = "";
+        display.value = "";
+    }
+});
