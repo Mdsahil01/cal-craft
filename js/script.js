@@ -21,7 +21,7 @@ let currentInput = "";
 
 numberButtons.forEach(button => {
     button.addEventListener("click", () => {
-        
+
         if (button.textContent === ".") {
     const parts = currentInput.split(/[+\-*/%]/);
 
@@ -92,6 +92,11 @@ functionButtons.forEach(button => {
 // ==========================
 
 equalButton.addEventListener("click", () => {
+    
+    if (currentInput.trim() === "") {
+        return;
+    }
+
     try {
         currentInput = eval(currentInput).toString();
         display.value = currentInput;
