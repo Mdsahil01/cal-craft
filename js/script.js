@@ -21,6 +21,14 @@ let currentInput = "";
 
 numberButtons.forEach(button => {
     button.addEventListener("click", () => {
+        
+        if (button.textContent === ".") {
+    const parts = currentInput.split(/[+\-*/%]/);
+
+    if (parts[parts.length - 1].includes(".")) {
+        return;
+    }
+}
         currentInput += button.textContent;
         display.value = currentInput;
     });
