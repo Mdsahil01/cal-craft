@@ -106,15 +106,15 @@ Open `index.html` in your preferred web browser.
 
 ---
 
-## 📷 Screenshots
+## 📸 Screenshots
 
-Add screenshots of your project in the `assets/screenshots/` folder.
+### Calculator Interface
 
-Example:
+![Calculator Interface](assets/screenshots/calculator-home.png)
 
-- Home Screen
-- Calculator Working
-- Responsive Mobile View
+### Developer Credits
+
+![Developer Credits](assets/screenshots/developer-footer.png)
 
 ---
 
