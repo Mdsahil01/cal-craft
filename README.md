@@ -123,12 +123,12 @@ Example:
 ### Mohammed Sahil
 
 - GitHub: https://github.com/Mdsahil01
-- LinkedIn: *Add your LinkedIn profile link*
+- LinkedIn: https://www.linkedin.com/in/mdsahil01
 
 ### Pavan Vastrad
 
-- GitHub: *Add Pavan's GitHub profile link*
-- LinkedIn: *Add Pavan's LinkedIn profile link*
+- GitHub:  https://github.com/vastradpavan88
+- LinkedIn:  https://www.linkedin.com/in/pavan-vastrad/
 
 ---
 
